@@ -44,6 +44,33 @@ app.get('/posts/:id', (req, res) => {
     })
 })
 
+
+// DELETE POST
+
+app.get('/posts/:id/delete', (req, res) => {
+    fs.readFile('./data/posts.json', (err, data) => {
+        if (err) throw err
+
+        const id = req.params.id
+        
+        const posts = JSON.parse(data)
+        const post = posts.findIndex((e) => e.id == id)
+        posts.splice(post, 1)
+
+        fs.writeFile('./data/posts.json', JSON.stringify(posts), err => {
+            if (err) throw err
+            res.redirect('/posts?deleted=success')
+        })
+    })
+})
+
+
+//API FOR POSTS
+
+const api = require('./routes/api.js')
+app.use('/api/v1/posts', api)
+
+
 //404 ERROR HANDLING
 
 app.use(function (req, res, next) {
