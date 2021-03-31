@@ -31,6 +31,19 @@ app.get('/posts', (req, res) => {
     })
 })
 
+//ROUTE FOR SHOWING INDIVIDUAL POST 
+
+app.get('/posts/:id', (req, res) => {
+    const id = req.params.id
+    fs.readFile('./data/posts.json', (err, data) => {
+        if (err) throw err
+        
+        const posts = JSON.parse(data)
+        const post = posts.filter(post => post.id == id)[0]
+        res.render('post', {post: post})
+    })
+})
+
 //404 ERROR HANDLING
 
 app.use(function (req, res, next) {
