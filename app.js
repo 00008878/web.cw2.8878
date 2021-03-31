@@ -11,3 +11,34 @@ app.use(express.urlencoded({extended: false}))
 app.get('/', (req, res) => {
     res.render('home')
 })
+
+
+//IMPORTING ROUTE FOR CREATING A POST
+
+const create = require('./routes/create.js')
+app.use('/create', create)
+
+
+//SHOWING ALL POSTS
+
+app.get('/posts', (req, res) => {
+
+    fs.readFile('./data/posts.json', (err, data) => {
+        if (err) throw err
+        
+        const posts = JSON.parse(data)
+        res.render('posts', {posts: posts})
+    })
+})
+
+//404 ERROR HANDLING
+
+app.use(function (req, res, next) {
+    res.status(404).render('error_404')
+})
+
+app.listen(8000,  err => {
+    if(err) console.log(err)
+
+    console.log('Server is running on port 8000...')
+})
