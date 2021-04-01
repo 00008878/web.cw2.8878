@@ -1,6 +1,6 @@
 # Mindtube - blogging web application
 
-### Web app for adding posts, reading all posts and deleting them
+### Web app for adding posts, reading all posts, deleting them and updating
 
 To run the app, follow the guideline below:
 
