@@ -65,6 +65,45 @@ app.get('/posts/:id/delete', (req, res) => {
 })
 
 
+
+//UPDATE 
+
+app.get('/update/:id', (req, res) => {
+    const id = req.params.id
+    fs.readFile('./data/posts.json', (err, data) => {
+        if (err) throw err
+        
+        const posts = JSON.parse(data)
+        const post = posts.filter(post => post.id == id)[0]
+        res.render('update', {post: post})
+    })
+})
+
+app.post('/update/:id', (req, res) => {
+    const id = req.params.id
+
+    const title = req.body.title
+    const body = req.body.body
+    const author = req.body.author
+
+    fs.readFile('./data/posts.json', (err, data) => {
+        if (err) throw err
+
+        const posts = JSON.parse(data)
+        const index = posts.findIndex(post => post.id == id)
+
+        posts[index].title = title
+        posts[index].body = body
+        posts[index].author = author
+
+        fs.writeFile('./data/posts.json', JSON.stringify(posts), err => {
+         if (err) throw err
+        })
+        res.redirect('/posts?update=success')
+    })
+})
+
+
 //API FOR POSTS
 
 const api = require('./routes/api.js')

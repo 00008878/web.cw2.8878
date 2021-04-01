@@ -211,6 +211,19 @@ button:hover {
   transition: 0.3s;
 }
 
+.update {
+  font-size: 18px;
+  padding: 5px 20px;
+  background-color: var(--background);
+  color: var(--buttons);
+  border: 1px solid var(--buttons);
+  border-radius: 20px;
+  box-shadow: 0 0 10px var(--buttons);
+  text-transform: uppercase;
+  margin-left: 30px;
+  transition: 0.3s;
+}
+
 .author-all {
   font-size: 20px;
 }
